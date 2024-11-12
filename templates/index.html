@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <title>
+    درصد احتمالات رتبه | ساحل براتی
+  </title>
+  <link id="pagestyle" href="{{ url_for('static', filename='css/sahel.css', v='2.0.4') }}" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sahel.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='js/bootstrap.min.js') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='font.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='yekanBakh/YekanBakhRegular.woff') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='yekanBakh/Yekan-Bakh-FaNum-07-Heavyd6c9.woff') }}">
+
+  <style>
+    * {
+      font-family: yekanBakh, YekanBakhRegular, YekanBakhLight, YekanBakhBold !important;
+    }
+
+    /* Loader Styles */
+    .loader,
+    .loader:before,
+    .loader:after {
+      border-radius: 50%;
+    }
+
+    .loader {
+      color: #3498db;
+      /* رنگ آبی */
+      font-size: 11px;
+      text-indent: -9999em;
+      margin: 55px auto;
+      position: relative;
+      width: 10em;
+      height: 10em;
+      box-shadow: inset 0 0 0 1em;
+      transform: translateZ(0);
+    }
+
+    .loader:before,
+    .loader:after {
+      position: absolute;
+      content: '';
+    }
+
+    .loader:before {
+      width: 5.2em;
+      height: 10.2em;
+      background: #3498db;
+      /* رنگ آبی */
+      border-radius: 10.2em 0 0 10.2em;
+      top: -0.1em;
+      left: -0.1em;
+      transform-origin: 5.1em 5.1em;
+      animation: load2 2s infinite ease 1.5s;
+    }
+
+    .loader:after {
+      width: 5.2em;
+      height: 10.2em;
+      background: #3498db;
+      /* رنگ آبی */
+      border-radius: 0 10.2em 10.2em 0;
+      top: -0.1em;
+      left: 5.1em;
+      transform-origin: 0 5.1em;
+      animation: load2 2s infinite ease;
+    }
+
+    @keyframes load2 {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    #loader-container {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+  </style>
+  <!-- اضافه کردن کتابخانه jQuery و select2 برای قابلیت چند انتخابی و جستجو -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+</head>
+
+<body class="g-sidenav-show bg-gray-100">
+
+  <div class="position-absolute w-100 min-height-300 top-0" style="background-image: url('{{ url_for('static', filename='profile-layout-header.jpg') }}'); background-position-y: 2%;">
+    <span class="mask bg-primary opacity-6"></span>
+  </div>
+  <div class="main-content position-relative max-height-vh-100 h-100">
+    <div class="card shadow-lg mx-4 card-profile-bottom">
+      <div class="card-body p-3">
+        <div class="row gx-4">
+          <div class="col-auto mobile-flex">
+            <div class="avatar avatar-xl position-relative">
+              <img src="https://dl.sahelbaratii.com/wp-content/uploads/669a0f4a1209e5.36752411.png" alt="Profile Image" class="w-100 border-radius-lg shadow-sm">
+
+            </div>
+
+            <div class="col-auto my-auto">
+              <div class="h-100">
+                <p class="mb-1">
+                  اکادمی
+                </p>
+                <h5 class="mb-0 font-weight-bold">
+                  ساحل براتی
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 col-md-6 my-sm-auto mx-auto mt-3">
+            <div class="nav-wrapper position-relative end-0">
+              <ul class="nav nav-pills nav-fill p-1 gap-4" role="tablist">
+                <li class="nav-item">
+                  <div class="form-group">
+                    <label for="quotaRank" class="form-control-label">رتبه در منطقه</label>
+                    <input class="form-control" type="number" id="quotaRank" name="quota_rank" required>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <div class="form-group">
+                    <label for="quotaNumber" class="form-control-label">منطقه</label>
+                    <select class="form-control" id="quotaNumber" name="quota_number">
+                      <option value="1">منطقه 1</option>
+                      <option value="2">منطقه 2</option>
+                      <option value="3">منطقه 3</option>
+                    </select>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <div class="form-group">
+                    <label for="groupName" class="form-control-label">گروه آزمایشی</label>
+                    <select class="form-control" id="groupName" name="group_name">
+                      <option value="1">انسانی</option>
+                      <option value="2">تجربی</option>
+                      <option value="3">ریاضی</option>
+                      <option value="4">هنر</option>
+                      <option value="5">زبان</option>
+                    </select>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <div class="form-group">
+                    <label for="courseType" class="form-control-label">نوع دوره</label>
+                    <select class="form-control" id="courseType" name="course_type" multiple>
+                      <option value="1">نوبت دوم</option>
+                      <option value="2">روزانه</option>
+                    </select>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <div class="form-group">
+                    <label for="majors" class="form-control-label">رشته‌ها</label>
+                    <select class="form-control" id="majors" name="majors[]" multiple="multiple">
+                      <option value="1">برنامه ریزی اجتماعی و تعاون</option>
+                      <option value="2">تاریخ</option>
+                      <option value="3">حقوق</option>
+                      <option value="4">زبان و ادبیات ترکی آذری</option>
+                      <option value="5">زبان و ادبیات فارسی</option>
+                      <option value="6">علوم تربیتی</option>
+                      <option value="7">علوم سیاسی</option>
+                      <option value="8">فلسفه</option>
+                      <option value="9">اقتصاد</option>
+                      <option value="10">روانشناسی</option>
+                      <option value="11">علوم ورزشی</option>
+                      <option value="12">گردشگری</option>
+                      <option value="13">علم اطلاعات و دانش شناسی</option>
+                      <option value="14">زبان و ادبیات عربی</option>
+                      <option value="15">مشاوره</option>
+                      <option value="16">مطالعات خانواده</option>
+                      <option value="17">حسابداری</option>
+                      <option value="18">مدیریت دولتی</option>
+                      <option value="19">علوم قرآن و حدیث</option>
+                      <option value="20">باستان شناسی</option>
+                      <option value="21">علوم ارتباطات اجتماعی</option>
+                      <option value="22">مردم شناسی</option>
+                      <option value="23">هتلداری</option>
+                      <option value="24">مددکاری اجتماعی</option>
+                      <option value="25">کارشناسی ارشد پیوسته علوم قضایی</option>
+                      <option value="26">مدیریت و بازرگانی دریایی</option>
+                      <option value="27">مدیریت کسب و کار</option>
+                      <option value="28">زبان و زبان شناسی</option>
+                      <option value="29">کاردانی حسابداری</option>
+                      <option value="30">ایران شناسی</option>
+                      <option value="31">دکتری عمومی پزشکی</option>
+                      <option value="32">دکتری عمومی داروسازی</option>
+                      <option value="33">دکتری عمومی دندانپزشکی</option>
+                      <option value="34">بهداشت عمومی</option>
+                      <option value="35">پرستاری</option>
+                      <option value="36">تکنولوژی اتاق عمل</option>
+                      <option value="37">تکنولوژی پرتوشناسی</option>
+                      <option value="38">شنوایی شناسی</option>
+                      <option value="39">علوم آزمایشگاهی</option>
+                      <option value="40">علوم تغذیه</option>
+                      <option value="41">علوم و صنایع غذایی</option>
+                      <option value="42">فناوری اطلاعات سمت</option>
+                      <option value="43">فوریت های پزشکی پیش بیمارستانی</option>
+                      <option value="44">فیزیوتراپی</option>
+                      <option value="45">کاردرمانی</option>
+                      <option value="46">گفتار درمانی</option>
+                      <option value="47">مامایی</option>
+                      <option value="48">مهندسی بهداشت محیط</option>
+                      <option value="49">هوشبری</option>
+                      <option value="50">مهندسی بهداشت حرفه ای و ایمنی کار</option>
+                      <option value="51">اعضای مصنوعی و وسایل کمکی</option>
+                      <option value="52">ساخت پروتزهای دندانی</option>
+                      <option value="53">بیولوژی و کنترل ناقلین بیماریها</option>
+                      <option value="54">بینایی سنجی</option>
+                      <option value="55">کتابداری و اطلاع رسانی پزشکی</option>
+                      <option value="56">تکنولوژی پزشکی هسته ای</option>
+                      <option value="57">دکتری عمومی دامپزشکی</option>
+                      <option value="58">بهداشت مواد غذایی</option>
+                      <option value="59">زیست شناسی جانوری</option>
+                      <option value="60">زیست شناسی سلولی و مولکولی</option>
+                      <option value="61">علوم آزمایشگاهی دامپزشکی</option>
+                      <option value="62">مهندسی گیاه پزشکی</option>
+                      <option value="63">شیمی کاربردی</option>
+                      <option value="64">میکروبیولوژی</option>
+                      <option value="65">زمین شناسی</option>
+                      <option value="66">مهندسی تولید و ژنتیک گیاهی</option>
+                      <option value="67">کاردانی دامپزشکی</option>
+                      <option value="68">دکتری پیوسته بیوتکنولوژی</option>
+                      <option value="69">مهندسی اپتیک و لیزر</option>
+                      <option value="70">مهندسی برق</option>
+                      <option value="71">مهندسی پلیمر</option>
+                      <option value="72">مهندسی شیمی</option>
+                      <option value="73">مهندسی عمران</option>
+                      <option value="74">مهندسی کامپیوتر</option>
+                      <option value="75">مهندسی معماری</option>
+                      <option value="76">مهندسی مکانیک</option>
+                      <option value="77">مهندسی مواد و متالورژی</option>
+                      <option value="78">آمار</option>
+                      <option value="79">ریاضیات و کاربردها</option>
+                      <option value="80">علوم کامپیوتر</option>
+                      <option value="81">فیزیک</option>
+                      <option value="82">فیزیک مهندسی</option>
+                      <option value="83">مهندسی ساخت و تولید</option>
+                      <option value="84">مهندسی صنایع</option>
+                      <option value="85">مهندسی نقشه برداری</option>
+                      <option value="86">مهندسی پزشکی</option>
+                      <option value="87">مهندسی معدن</option>
+                      <option value="88">مهندسی نفت</option>
+                      <option value="89">چند رسانه ای</option>
+                      <option value="90">مهندسی شهرسازی</option>
+                      <option value="91">علوم و مهندسی آب</option>
+                      <option value="92">مهندسی ماشین های صنایع غذایی</option>
+                      <option value="93">مهندسی نساجی</option>
+                      <option value="94">مهندسی هوافضا</option>
+                      <option value="95">علوم مهندسی</option>
+                      <option value="96">بیم سنجی</option>
+                      <option value="97">مهندسی انرژی</option>
+                      <option value="98">کاردان فنی الکترونیک</option>
+                      <option value="99">مهندسی دریا</option>
+                      <option value="100">مهندسی الکترونیک هواپیمایی</option>
+                      <option value="101">مهندسی اویونیک</option>
+                      <option value="102">مهندسی هوانوردی و مراقبت پرواز</option>
+                      <option value="103">مهندسی ماشین آلات دریایی</option>
+                      <option value="104">مهندسی کشتی (موتور)</option>
+                      <option value="105">مهندسی بهره برداری راه آهن</option>
+                      <option value="106">مهندسی مکانیزاسیون کشاورزی</option>
+                      <option value="107">ارتباط تصویری</option>
+                      <option value="108">طراحی صنعتی</option>
+                      <option value="109">فرش</option>
+                      <option value="110">مرمت اشیاء فرهنگی و تاریخی</option>
+                      <option value="111">نقاشی ایرانی</option>
+                      <option value="112">صنایع دستی</option>
+                      <option value="113">آهنگسازی</option>
+                      <option value="114">عکاسی</option>
+                      <option value="115">موزه</option>
+                      <option value="116">هنر اسلامی</option>
+                      <option value="117">بازیگری</option>
+                      <option value="118">نمایش عروسکی</option>
+                      <option value="119">نوازندگی موسیقی ایرانی</option>
+                      <option value="120">نوازندگی موسیقی جهانی</option>
+                      <option value="121">تلویزیون و هنرهای دیجیتالی</option>
+                      <option value="122">کارگردانی تلویزیون</option>
+                      <option value="123">طراحی صحنه</option>
+                      <option value="124">طراحی و چاپ پارچه</option>
+                      <option value="125">سینما</option>
+                      <option value="126">زبان و ادبیات انگلیسی</option>
+                      <option value="127">زبان و ادبیات فرانسه</option>
+                      <option value="128">زبان روسی</option>
+                      <option value="129">زبان ایتالیایی</option>
+                      <option value="130">زبان چینی</option>
+                      <option value="131">زبان و ادبیات آلمانی</option>
+                      <option value="132">زبان و ادبیات ژاپنی</option>                          
+                    </select>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <div class="form-group">
+                    <label for="nationalRank" class="form-control-label">رتبه کشوری</label>
+                    <input class="form-control" type="number" id="nationalRank" name="national_rank">
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <div class="form-group">
+                    <label for="gpaScore" class="form-control-label">تراز معدل</label>
+                    <input class="form-control" type="number" id="gpaScore" name="gpa_score">
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-8 col-md-6 my-sm-auto mx-auto mt-3">
+            <div class="nav-wrapper position-relative end-0 justify-content-center d-flex align-items-center mt-3">
+              <button class="btn btn-primary btn-sm ms-auto w-80 m-auto" id="fetchDataButton">نمایش رشته ها با احتمال قبولی</button>
+            </div>
+            <div class="d-flex justify-content-center gap-3 mt-3">
+              <button class="btn btn-outline-secondary" id="sortAscButton" style="display:none;">بدبینانه به خوش بینانه</button>
+              <button class="btn btn-outline-secondary" id="sortDescButton" style="display:none;">خوش بینانه به بدبینانه</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-md-11 m-auto">
+          <div class="card">
+            <div class="card-header pb-0">
+              <div class="d-flex align-items-center">
+                <p class="mb-0">نتایج پیدا شده</p>
+              </div>
+            </div>
+            <div class="card-body" style="overflow-x: scroll;">
+              <table class="table align-items-center mb-0" id="percentFinder">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">ردیف</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">کد رشته</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">نام رشته</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">دانشگاه</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">استان</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">شهر</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">نوع</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">درصد احتمال</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">احتمال کیفی</th>
+                  </tr>
+                </thead>
+
+                <tbody></tbody>
+              </table>
+              <div id="loader-container">
+                <div class="loader"></div>
+              </div>
+              <div class="d-flex justify-content-center mt-3">
+                <button class="btn btn-secondary" id="loadMoreButton">نمایش بیشتر</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentPage = 1;
+    let sortOrder = 'asc';
+    let isLoading = false;
+    let totalCount = 0;
+
+    document.getElementById('fetchDataButton').addEventListener('click', function () {
+      currentPage = 1;
+      totalCount = 0;
+      fetchData();
+    });
+
+    document.getElementById('sortAscButton').addEventListener('click', function () {
+      sortOrder = 'asc';
+      currentPage = 1;
+      totalCount = 0;
+      fetchData(true);
+    });
+
+    document.getElementById('sortDescButton').addEventListener('click', function () {
+      sortOrder = 'desc';
+      currentPage = 1;
+      totalCount = 0;
+      fetchData(true);
+    });
+
+    document.getElementById('loadMoreButton').addEventListener('click', function () {
+      fetchData(false);
+    });
+
+    function showLoader() {
+      document.getElementById('loader-container').style.display = 'flex';
+    }
+
+    function hideLoader() {
+      document.getElementById('loader-container').style.display = 'none';
+    }
+
+    function fetchData(reset = true) {
+      if (isLoading) return;
+      isLoading = true;
+      showLoader();
+
+      const quotaRank = document.getElementById('quotaRank').value;
+      const quotaNumber = document.getElementById('quotaNumber').value;
+      const groupName = document.getElementById('groupName').value;
+      const courseType = $('#courseType').val() || [];
+      const majors = $('#majors').val() || [];
+
+      const payload = {
+        quota_rank: parseInt(quotaRank), // Ensure quota_rank is an integer
+        quota_number: parseInt(quotaNumber),
+        group_name: parseInt(groupName),
+        reshte_name_new: majors.map(val => parseInt(val)),
+        type_new: courseType.map(val => parseInt(val)),
+        city_new: [],
+        state_new: []
+      };
+
+      console.log('JSON Payload:', payload); // چاپ رشته جیسون ارسالی در کنسول
+
+      fetch('http://127.0.0.1:5000/calculate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload      )
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+          }
+          return response.json();
+        })
+        .then(data => {
+          const tableBody = document.querySelector("#percentFinder tbody");
+          if (reset) {
+            tableBody.innerHTML = "";
+            currentPage = 1;
+            totalCount = 0;
+          }
+
+          data.forEach((row, index) => {
+            totalCount++;
+            let adjustedProbability = row.probability_percentage;
+            if (adjustedProbability !== 1) {
+              adjustedProbability += adjustedProbability * 0.5;
+              if (adjustedProbability > 100) {
+                adjustedProbability = 100;
+              }
+            }
+            if (adjustedProbability === 100) {
+              adjustedProbability = 99;
+            }
+
+            const qualitativeProbability = translateQualitativeProbability(row.qualitative_probability);
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+        <td>${totalCount}</td>
+        <td>${row.reshte_code}</td>
+        <td>${row.reshte_name}</td>
+        <td class="align-middle text-center text-sm"><span class="text-secondary text-xs font-weight-bold">${row.university}</span></td>
+        <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">${row.state}</span></td>
+        <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">${row.city}</span></td>
+        <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">${row.type}</span></td>
+        <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">${adjustedProbability.toFixed(2)}</span></td>
+        <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">${qualitativeProbability}</span></td>
+      `;
+            tableBody.appendChild(tr);
+          });
+          currentPage++;
+          isLoading = false;
+          hideLoader();
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          isLoading = false;
+          hideLoader();
+        });
+    }
+
+    function translateQualitativeProbability(probability) {
+      switch (probability) {
+        case 'Khoshbinane':
+          return 'خوش بینانه';
+        case 'normal':
+          return 'متوسط';
+        case 'bad_binane':
+          return 'بدبینانه';
+        default:
+          return probability;
+      }
+    }
+
+    // فعال کردن select2 برای دراپ داون رشته‌ها و نوع دوره
+    $(document).ready(function () {
+      $('#majors').select2({
+        placeholder: "انتخاب رشته‌ها",
+        allowClear: true,
+        width: '100%'
+      });
+      $('#courseType').select2({
+        placeholder: "انتخاب نوع دوره",
+        allowClear: true,
+        width: '100%'
+      });
+    });
+  </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+const form = document.getElementById('dataForm');
+const resultDiv = document.getElementById('result');
+
+form.addEventListener('submit', function(event) {
+event.preventDefault();
+const formData = new FormData(form);
+
+// Convert form data to JSON
+const jsonData = {};
+formData.forEach((value, key) => {
+  jsonData[key] = value;
+});
+
+// Send the data to the backend using fetch API
+fetch('http://127.0.0.1:5000/calculate', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(jsonData),
+})
+.then(response => response.json())
+.then(data => {
+  // Display the result
+  resultDiv.textContent = 'Result: ' + JSON.stringify(data);
+})
+.catch(error => {
+  resultDiv.textContent = 'Error: ' + error.message;
+});
+});
+});
+</script>
+
+</body>
+
+</html>
