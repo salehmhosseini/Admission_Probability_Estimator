@@ -35,7 +35,7 @@ The application displays a list of potential universities and majors for the can
 ## Screenshots
 
 ### Main Interface
-![Main Interface](main.png)
+![Main Interface](https://github.com/salehmhosseini/Admission_Probability_Estimator/blob/main/screenshots/main.png)
 Candidates can input their details such as major group, regional and national rank, and desired majors to calculate admission probabilities.
 
 ### Results Page
