@@ -39,7 +39,7 @@ The application displays a list of potential universities and majors for the can
 Candidates can input their details such as major group, regional and national rank, and desired majors to calculate admission probabilities.
 
 ### Results Page
-![Results Page](result1.png)
+![Results Page]([result1.png](https://github.com/salehmhosseini/Admission_Probability_Estimator/blob/main/screenshots/result1.png))
 Displays a list of possible admissions with each university’s program, acceptance probability, and type (full-time or part-time).
 
 ## Installation
