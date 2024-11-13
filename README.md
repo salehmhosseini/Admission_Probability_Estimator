@@ -63,7 +63,7 @@ To run this project on your local machine, follow these steps:
 
 ## Usage
 1. **Input Details:** Enter your exam-related data in the input fields provided on the main page.
-2. **Get Predictions:** Click on "نمایش رشته ها احتمال قبولی" (Show Admission Probabilities) to see a list of universities with your calculated chances of admission.
+2. **Get Predictions:** Click on "نمایش رشته ها با احتمال قبولی" (Show Admission Probabilities) to see a list of universities with your calculated chances of admission.
 3. **Interpret Results:** Use the admission probabilities provided to understand your admission likelihood across different programs and universities.
 
 ## Future Enhancements
