@@ -62,6 +62,29 @@ To run this project on your local machine, follow these steps:
 6. **Access the application:**  Open a browser and navigate to http://localhost:5000.
 
 ## Usage
+1. **Input Details:** Enter your exam-related data in the input fields provided on the main page.
+2. **Get Predictions:** Click on "نمایش رشته ها احتمال قبولی" (Show Admission Probabilities) to see a list of universities with your calculated chances of admission.
+3. **Interpret Results:** Use the admission probabilities provided to understand your admission likelihood across different programs and universities.
+
+## Future Enhancements
+1. **UI Improvement:** Refine the user interface for a more polished and intuitive experience.
+2. **Dataset Expansion:** Gather additional datasets to improve prediction accuracy.
+3. **Model Accuracy:** Enhance the prediction model for even higher accuracy.
+4. **Data Validation:** Implement stricter data validation mechanisms.
+5. **Process Validation:** Ensure consistency and reliability in the admission prediction process.
+
+## Contributing
+We welcome contributions! If you’d like to improve the project, please fork the repository and create a pull request.
+
+## License
+This project is licensed under the MIT License.
+
+
+
+
+
+
+
 
 
 
