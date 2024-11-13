@@ -55,7 +55,7 @@ To run this project on your local machine, follow these steps:
    git clone https://github.com/salehmhosseini/Admission_Probability_Estimator.git
 4. **Navigate to the project directory**:
    ```
-   cd UniversityAdmissionPredictor
+   cd Admission_Probability_Estimator
 5. **Run the application**
    ```
    python api_not_null_complete.py
