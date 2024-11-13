@@ -50,3 +50,42 @@ To run this project on your local machine, follow these steps:
 2. **Install Flask**: 
    ```bash
    pip install flask
+
+
+
+   Clone the repository:
+bash
+Copy code
+git clone https://github.com/your-username/UniversityAdmissionPredictor.git
+Navigate to the project directory:
+bash
+Copy code
+cd UniversityAdmissionPredictor
+Run the application:
+bash
+Copy code
+python api_not_null_complete.py
+Access the application: Open a browser and navigate to http://localhost:5000.
+Usage
+Input Details: Enter your exam-related data in the input fields provided on the main page.
+Get Predictions: Click on "نمایش رشته ها احتمال قبولی" (Show Admission Probabilities) to see a list of universities with your calculated chances of admission.
+Interpret Results: Use the admission probabilities provided to understand your admission likelihood across different programs and universities.
+Future Enhancements
+UI Improvement: Refine the user interface for a more polished and intuitive experience.
+Dataset Expansion: Gather additional datasets to improve prediction accuracy.
+Model Accuracy: Enhance the prediction model for even higher accuracy.
+Data Validation: Implement stricter data validation mechanisms.
+Process Validation: Ensure consistency and reliability in the admission prediction process.
+Contributing
+We welcome contributions! If you’d like to improve the project, please fork the repository and create a pull request.
+
+License
+This project is licensed under the MIT License.
+
+Copy code
+
+
+
+
+
+
