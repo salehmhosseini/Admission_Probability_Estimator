@@ -78,18 +78,3 @@ We welcome contributions! If you’d like to improve the project, please fork th
 
 ## License
 This project is licensed under the MIT License.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
