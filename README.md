@@ -1,2 +1,52 @@
 # Admission_Probability_Estimator
 This is a python flask application to calculate and estimate the admission probabilty in universities
+
+# University Admission Probability Predictor
+
+A web application developed using Flask that helps Iranian university entrance exam candidates assess their chances of admission to various universities and majors based on their academic data. This project was built for Sahel Barati's Academy to assist students and counselors in making more informed and optimized major selection decisions.
+
+[Live Demo](https://sahelbaratii.com/probability-of-acceptance/)
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Future Enhancements](#future-enhancements)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Overview
+
+This application is designed to provide a comprehensive view for university candidates on their chances of admission. The tool uses a dataset scraped from the 2021 admissions data and applies machine learning algorithms to enhance predictions and fill any missing data points.
+
+The application displays a list of potential universities and majors for the candidate along with both quantitative and qualitative admission probabilities, making it easier for candidates to make data-driven decisions during the application process.
+
+## Features
+
+- **Data Entry**: Candidates enter details such as their region, major, regional and national rank, GPA score, and desired majors.
+- **University List**: Displays a list of universities and programs with calculated probabilities for admission based on input.
+- **Qualitative and Quantitative Probability**: Shows both percentage-based and qualitative acceptance chances.
+- **Machine Learning Enhanced Predictions**: Completes and improves dataset predictions for higher accuracy.
+- **Scraped Data Integration**: Utilizes real data from 2021 to provide realistic predictions.
+
+## Screenshots
+
+### Main Interface
+![Main Interface](main.png)
+Candidates can input their details such as major group, regional and national rank, and desired majors to calculate admission probabilities.
+
+### Results Page
+![Results Page](result1.png)
+Displays a list of possible admissions with each university’s program, acceptance probability, and type (full-time or part-time).
+
+## Installation
+
+To run this project on your local machine, follow these steps:
+
+1. **Install Python** (if not already installed).
+2. **Install Flask**: 
+   ```bash
+   pip install flask
