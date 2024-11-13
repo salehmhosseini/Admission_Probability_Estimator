@@ -59,7 +59,7 @@ To run this project on your local machine, follow these steps:
 5. **Run the application**
    ```
    python api_not_null_complete.py
-6. **Access the application: **  Open a browser and navigate to http://localhost:5000.
+6. **Access the application:**  Open a browser and navigate to http://localhost:5000.
 
 ## Usage
 
